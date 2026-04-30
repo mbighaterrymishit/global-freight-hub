@@ -29,19 +29,41 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "International Cargo Dispatch — Global Freight & Logistics" },
+      {
+        name: "description",
+        content:
+          "International Cargo Dispatch delivers premium global freight forwarding, air, sea & road cargo, warehousing, and customs clearance from the United States to 180+ countries.",
+      },
+      { name: "author", content: "International Cargo Dispatch" },
+      { name: "geo.region", content: "US" },
+      { name: "geo.placename", content: "United States" },
+      { property: "og:title", content: "International Cargo Dispatch — Global Freight & Logistics" },
+      {
+        property: "og:description",
+        content: "Premium international cargo shipping, freight forwarding, and live shipment tracking.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "International Cargo Dispatch",
+          url: "https://internationalcargodispatch.com",
+          email: "info@internationalcargodispatch.com",
+          address: { "@type": "PostalAddress", addressCountry: "US" },
+        }),
       },
     ],
   }),
