@@ -48,7 +48,7 @@ function EditShipment() {
     setBusy(true); setErr(null);
     const { id: _id, tracking_number: _tn, ...rest } = shipment;
     void _id; void _tn;
-    const { error } = await supabase.from("shipments").update(rest).eq("id", id);
+    const { error } = await supabase.from("shipments").update(rest as never).eq("id", id);
     if (error) setErr(error.message);
     setBusy(false);
   };

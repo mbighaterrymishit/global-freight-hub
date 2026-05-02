@@ -6,12 +6,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const nav = [
+const nav: { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean }[] = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/admin/create", label: "Create Shipment", icon: PackagePlus },
   { to: "/admin/shipments", label: "Shipments", icon: Boxes },
   { to: "/admin/settings", label: "Settings", icon: Settings },
-] as const;
+];
 
 export function AdminShell({ children, email }: { children: ReactNode; email?: string }) {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ export function AdminShell({ children, email }: { children: ReactNode; email?: s
           return (
             <Link
               key={n.to}
-              to={n.to}
+              to={n.to as never}
               onClick={() => setOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",

@@ -65,9 +65,6 @@ function CreateShipment() {
     };
     const { error } = await supabase.from("shipments").insert(payload as never);
     if (error) { setError(error.message); setBusy(false); return; }
-    await supabase.from("shipment_events").insert({
-      shipment_id: undefined, // placeholder
-    } as never).then(() => undefined).catch(() => undefined);
     // Insert initial event using fetched id
     const { data: row } = await supabase.from("shipments").select("id").eq("tracking_number", tracking_number).maybeSingle();
     if (row) {
