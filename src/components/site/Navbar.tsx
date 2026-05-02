@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Ship, LogIn } from "lucide-react";
+import { Menu, X, Ship, LogIn, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 
 const links = [
   { to: "/", label: "Home" },
@@ -18,6 +19,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -63,6 +65,11 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-2">
+          {isAdmin && (
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/admin"><LayoutDashboard className="h-4 w-4" /> Admin</Link>
+            </Button>
+          )}
           <Button asChild variant="ghost" size="sm">
             <Link to="/login">
               <LogIn className="h-4 w-4" /> Login
