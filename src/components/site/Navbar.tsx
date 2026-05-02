@@ -1,9 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Ship, LogIn, LayoutDashboard } from "lucide-react";
+import { Menu, X, Ship } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/hooks/use-auth";
 
 const links = [
   { to: "/", label: "Home" },
@@ -19,7 +18,6 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -65,16 +63,6 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-2">
-          {isAdmin && (
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/admin"><LayoutDashboard className="h-4 w-4" /> Admin</Link>
-            </Button>
-          )}
-          <Button asChild variant="ghost" size="sm">
-            <Link to="/login">
-              <LogIn className="h-4 w-4" /> Login
-            </Link>
-          </Button>
           <Button asChild size="sm" className="bg-gold-gradient text-gold-foreground hover:opacity-90">
             <Link to="/quote">Request Quote</Link>
           </Button>
@@ -104,14 +92,9 @@ export function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <div className="flex gap-2 pt-3 mt-2 border-t border-border">
-              <Button asChild variant="outline" size="sm" className="flex-1">
-                <Link to="/login" onClick={() => setOpen(false)}>Login</Link>
-              </Button>
-              <Button asChild size="sm" className="flex-1 bg-gold-gradient text-gold-foreground">
-                <Link to="/quote" onClick={() => setOpen(false)}>Quote</Link>
-              </Button>
-            </div>
+            <Button asChild size="sm" className="mt-3 bg-gold-gradient text-gold-foreground">
+              <Link to="/quote" onClick={() => setOpen(false)}>Request Quote</Link>
+            </Button>
           </div>
         </div>
       )}
