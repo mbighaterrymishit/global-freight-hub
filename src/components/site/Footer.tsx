@@ -42,9 +42,9 @@ export function Footer() {
         <div>
           <h4 className="font-semibold mb-4 text-gold">Contact</h4>
           <ul className="space-y-3 text-sm text-primary-foreground/80">
-            <li className="flex gap-2"><MapPin className="h-4 w-4 mt-0.5 text-gold" /> United States</li>
-            <li className="flex gap-2"><Mail className="h-4 w-4 mt-0.5 text-gold" /> info@internationalcargodispatch.com</li>
-            <li className="flex gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /> +1 (555) 010-0199</li>
+            <li className="flex gap-2"><MapPin className="h-4 w-4 mt-0.5 text-gold" /><span>United States</span></li>
+            <li className="flex gap-2"><Mail className="h-4 w-4 mt-0.5 text-gold" /><span>info@internationalcargodispatch.com</span></li>
+            <li className="flex gap-2"><Phone className="h-4 w-4 mt-0.5 text-gold" /><span>+1 (555) 010-0199</span></li>
           </ul>
           <div className="flex gap-3 mt-5">
             {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (

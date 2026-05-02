@@ -20,7 +20,12 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
+import { Route as AdminShipmentsRouteImport } from './routes/admin.shipments'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminCreateRouteImport } from './routes/admin.create'
+import { Route as AdminShipmentsIdRouteImport } from './routes/admin.shipments.$id'
 
 const TrackingRoute = TrackingRouteImport.update({
   id: '/tracking',
@@ -77,16 +82,41 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BlogRoute,
 } as any)
+const AdminShipmentsRoute = AdminShipmentsRouteImport.update({
+  id: '/shipments',
+  path: '/shipments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCreateRoute = AdminCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminShipmentsIdRoute = AdminShipmentsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AdminShipmentsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -95,12 +125,16 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/create': typeof AdminCreateRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/shipments': typeof AdminShipmentsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/shipments/$id': typeof AdminShipmentsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -109,13 +143,18 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/create': typeof AdminCreateRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/shipments': typeof AdminShipmentsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/shipments/$id': typeof AdminShipmentsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -124,7 +163,12 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/services': typeof ServicesRoute
   '/tracking': typeof TrackingRoute
+  '/admin/create': typeof AdminCreateRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/shipments': typeof AdminShipmentsRouteWithChildren
   '/blog/$slug': typeof BlogSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/shipments/$id': typeof AdminShipmentsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -140,12 +184,16 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/tracking'
+    | '/admin/create'
+    | '/admin/settings'
+    | '/admin/shipments'
     | '/blog/$slug'
+    | '/admin/'
+    | '/admin/shipments/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/admin'
     | '/blog'
     | '/contact'
     | '/faq'
@@ -154,7 +202,12 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/tracking'
+    | '/admin/create'
+    | '/admin/settings'
+    | '/admin/shipments'
     | '/blog/$slug'
+    | '/admin'
+    | '/admin/shipments/$id'
   id:
     | '__root__'
     | '/'
@@ -168,13 +221,18 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/services'
     | '/tracking'
+    | '/admin/create'
+    | '/admin/settings'
+    | '/admin/shipments'
     | '/blog/$slug'
+    | '/admin/'
+    | '/admin/shipments/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
@@ -264,6 +322,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/$slug'
@@ -271,8 +336,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof BlogRoute
     }
+    '/admin/shipments': {
+      id: '/admin/shipments'
+      path: '/shipments'
+      fullPath: '/admin/shipments'
+      preLoaderRoute: typeof AdminShipmentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/create': {
+      id: '/admin/create'
+      path: '/create'
+      fullPath: '/admin/create'
+      preLoaderRoute: typeof AdminCreateRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/shipments/$id': {
+      id: '/admin/shipments/$id'
+      path: '/$id'
+      fullPath: '/admin/shipments/$id'
+      preLoaderRoute: typeof AdminShipmentsIdRouteImport
+      parentRoute: typeof AdminShipmentsRoute
+    }
   }
 }
+
+interface AdminShipmentsRouteChildren {
+  AdminShipmentsIdRoute: typeof AdminShipmentsIdRoute
+}
+
+const AdminShipmentsRouteChildren: AdminShipmentsRouteChildren = {
+  AdminShipmentsIdRoute: AdminShipmentsIdRoute,
+}
+
+const AdminShipmentsRouteWithChildren = AdminShipmentsRoute._addFileChildren(
+  AdminShipmentsRouteChildren,
+)
+
+interface AdminRouteChildren {
+  AdminCreateRoute: typeof AdminCreateRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminShipmentsRoute: typeof AdminShipmentsRouteWithChildren
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminCreateRoute: AdminCreateRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminShipmentsRoute: AdminShipmentsRouteWithChildren,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface BlogRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
@@ -287,7 +408,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
