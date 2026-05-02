@@ -19,6 +19,7 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -64,6 +65,11 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-2">
+          {isAdmin && (
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/admin"><LayoutDashboard className="h-4 w-4" /> Admin</Link>
+            </Button>
+          )}
           <Button asChild variant="ghost" size="sm">
             <Link to="/login">
               <LogIn className="h-4 w-4" /> Login
