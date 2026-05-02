@@ -78,60 +78,96 @@ export type Database = {
       }
       shipments: {
         Row: {
+          carrier: string | null
           cost_usd: number | null
           created_at: string
           created_by: string | null
           current_location: string | null
+          departure_at: string | null
           destination: string
           estimated_delivery: string | null
           id: string
           notes: string | null
           origin: string
+          package_description: string | null
+          payment_mode: string | null
+          pickup_at: string | null
+          product: string | null
+          quantity: number | null
           recipient_address: string | null
+          recipient_email: string | null
           recipient_name: string
+          recipient_phone: string | null
           sender_address: string | null
+          sender_email: string | null
           sender_name: string
+          sender_phone: string | null
           service_type: string
+          shipment_type: string | null
           status: string
           tracking_number: string
           updated_at: string
           weight_kg: number | null
         }
         Insert: {
+          carrier?: string | null
           cost_usd?: number | null
           created_at?: string
           created_by?: string | null
           current_location?: string | null
+          departure_at?: string | null
           destination: string
           estimated_delivery?: string | null
           id?: string
           notes?: string | null
           origin: string
+          package_description?: string | null
+          payment_mode?: string | null
+          pickup_at?: string | null
+          product?: string | null
+          quantity?: number | null
           recipient_address?: string | null
+          recipient_email?: string | null
           recipient_name: string
+          recipient_phone?: string | null
           sender_address?: string | null
+          sender_email?: string | null
           sender_name: string
+          sender_phone?: string | null
           service_type?: string
+          shipment_type?: string | null
           status?: string
           tracking_number: string
           updated_at?: string
           weight_kg?: number | null
         }
         Update: {
+          carrier?: string | null
           cost_usd?: number | null
           created_at?: string
           created_by?: string | null
           current_location?: string | null
+          departure_at?: string | null
           destination?: string
           estimated_delivery?: string | null
           id?: string
           notes?: string | null
           origin?: string
+          package_description?: string | null
+          payment_mode?: string | null
+          pickup_at?: string | null
+          product?: string | null
+          quantity?: number | null
           recipient_address?: string | null
+          recipient_email?: string | null
           recipient_name?: string
+          recipient_phone?: string | null
           sender_address?: string | null
+          sender_email?: string | null
           sender_name?: string
+          sender_phone?: string | null
           service_type?: string
+          shipment_type?: string | null
           status?: string
           tracking_number?: string
           updated_at?: string
